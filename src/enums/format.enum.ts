@@ -1,0 +1,6 @@
+export enum AdFormat {
+  BANNER = "BANNER",
+  FULLSREEN = "FULLSCREEN",
+  REWARDED = "REWARDED",
+  VIDEO = "VIDEO"
+}

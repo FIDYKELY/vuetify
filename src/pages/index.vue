@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-tabs v-model="selectedTab" centered color="grey-darken-1">
         <v-tab v-for="link in links" ::key="link">
-        {{ link }}
+          {{ link }}
         </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
@@ -24,7 +24,8 @@
               rounded="lg"
               class="pa-4"
             >
-          Page 0
+            <h2 class="mt-4">Apps list: </h2>
+            {{ apiResult }}
           </v-sheet>
             <v-sheet
               v-else
@@ -48,4 +49,22 @@ import { ref, watch, onMounted } from 'vue';
 
 let  selectedTab = ref(0)
 const links = ref(["Dashbord", "About"])
+let apiResult = ref()
+let groupedData = ref([])
+
+onMounted (async ( )=> {
+  fetchMonetizationApi()
+})
+
+watch(apiResult, (newValue) =>{
+  groupedData.value = useGroupApps(newValue.data)
+})
+
+
+// API
+const fetchMonetizationApi = async () => {
+  fetch('/monetization-api.json')
+  .then(response => response.json())
+  .then(data => apiResult.value = data)
+}
 </script>
